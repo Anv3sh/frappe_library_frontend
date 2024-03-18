@@ -1,10 +1,10 @@
 'use client';
-import React, { useEffect, useState, useCallback } from 'react';  
-import api from '../api';  
+import React, { useEffect, useState, useCallback } from 'react';    
 import ReactPaginate from 'react-paginate';  
 import styles from '../styles/MembersList.module.css';  
 import { Member } from '../types';  
-  
+import instance from '../api';
+
 const MembersList = () => {  
     const [members, setMembers] = useState<Member[]>([]);  
     const [totalPages, setTotalPages] = useState(0);  
@@ -14,7 +14,7 @@ const MembersList = () => {
   
     const getMembers = useCallback(async (page = 1) => {  
         try {  
-            const response = await api.get(`/members/?page=${page}`);  
+            const response = await instance.get(`/members/?page=${page}`);  
             setMembers(response.data.data);  
             setTotalPages(response.data.total_pages);  
             setCurrentPage(response.data.current_page);  
@@ -37,7 +37,7 @@ const MembersList = () => {
             return;  
         }  
         try {    
-            await api.delete(`/members/${memberId}/`);    
+            await instance.delete(`/members/${memberId}/`);    
             getMembers();  // Refresh the members list after deleting    
         } catch (error) {    
             console.error('Error while deleting member:', error);    

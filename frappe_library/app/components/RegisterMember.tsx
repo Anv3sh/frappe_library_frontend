@@ -2,7 +2,7 @@
 import React, { useState } from 'react';  
 import axios, {AxiosError} from 'axios';  
 import styles from '../styles/RegisterMember.module.css'
-
+import instance from '../api';
 interface ErrorResponse {  
     detail: string;  
 }
@@ -28,7 +28,7 @@ const RegisterMember = () => {
         }  
           
         try {    
-            const response = await axios.post('http://localhost:8080/frappe_library/api/v1/members/register-member/', {    
+            const response = await instance.post(`members/register-member/`, {    
                 first_name: firstName,    
                 last_name: lastName,    
                 email: email    

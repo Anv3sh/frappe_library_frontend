@@ -4,6 +4,7 @@ import axios from 'axios';
 import {Book, IssueHistory,IssuedBook, Member} from '../types' 
 import styles from '../styles/IssuedBooks.module.css'
 import ReactPaginate from 'react-paginate';
+import instance from '../api';
 
 const IssuedBooks = () => {  
     const [issuedBooks, setIssuedBooks] = useState<IssuedBook[]>([]);  
@@ -12,7 +13,7 @@ const IssuedBooks = () => {
     
     const getIssuedBooks = useCallback(async (page = 1) => {  
       try {  
-        const response = await axios.get(`http://localhost:8080/frappe_library/api/v1/books/issued-books/?page=${page}`);  
+        const response = await instance.get(`books/issued-books/?page=${page}`);  
         setIssuedBooks(response.data.data);  
         setTotalPages(response.data.total_pages);  
         setCurrentPage(response.data.current_page);  

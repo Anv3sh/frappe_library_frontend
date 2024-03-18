@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Book } from '../types';  
 import styles from '../styles/SearchBook.module.css'  
 import ReactPaginate from 'react-paginate'; 
+import instance from '../api';  
 
 
 const SearchBook = () => {    
@@ -17,7 +18,7 @@ const SearchBook = () => {
 
   const fetchBooks = useCallback(async (page = 1) => {        
     try {        
-      const result = await axios.get(`http://localhost:8080/frappe_library/api/v1/books/search-book/?title=${searchTerm.title}&author=${searchTerm.author}&page=${page}`);      
+      const result = await instance.get(`books/search-book/?title=${searchTerm.title}&author=${searchTerm.author}&page=${page}`);      
       setBooks(result.data.data);    
       setTotalPages(result.data.total_pages);  
       setCurrentPage(result.data.current_page);  

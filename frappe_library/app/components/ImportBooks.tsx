@@ -1,6 +1,7 @@
 import React, { useState } from 'react';  
 import axios from 'axios';  
 import styles from '../styles/ImportBooks.module.css'
+import instance from '../api';  
 
 
 const ImportBooks = () => {  
@@ -14,7 +15,7 @@ const ImportBooks = () => {
     e.preventDefault();  
   
     try {  
-      const response = await axios.post('http://localhost:8080/frappe_library/api/v1/books/import-books/', {  
+      const response = await instance.post(`books/import-books/`, {  
         title,  
         authors,  
         publisher,  
